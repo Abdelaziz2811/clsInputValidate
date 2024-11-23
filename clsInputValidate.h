@@ -53,8 +53,9 @@ public:
 	static int ReadIntNumber(string ErrorMassage = "Invalid Number, Enter a valid one ?")
 	{
 		int Number = 0;
+		cin >> Number;
 
-		while (!(cin >> Number))
+		while (cin.fail())
 		{
 			cin.clear();
 			cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
@@ -85,7 +86,7 @@ public:
 		double Number = 0;
 		cin >> Number;
 
-		while (!(cin >> Number))
+		while (cin.fail())
 		{
 			cin.clear();
 			cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
