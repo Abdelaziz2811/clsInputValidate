@@ -1,6 +1,7 @@
 #pragma once
 
 #include <iostream>
+#include <iomanip>
 #include "clsDate.h"
 #include "clsUtil.h"
 
@@ -11,15 +12,23 @@ class clsInputValidate
 public:
 	static bool IsNumberBetween(int Number, int From, int To) {
 
-		if (Number >= From || Number <= To)
+		if (Number >= From && Number <= To)
 			return true;
 		else
 			return false;
 	}
 
+	static bool IsNumberBetween(short Number, short From, short To) {
+
+		if (Number >= From && Number <= To)
+			return true;
+		else
+			return false;
+	}
+	
 	static bool IsNumberBetween(float Number, float From, float To) {
 
-		if (Number >= From || Number <= To)
+		if (Number >= From && Number <= To)
 			return true;
 		else
 			return false;
@@ -27,7 +36,7 @@ public:
 
 	static bool IsNumberBetween(double Number, double From, double To) {
 
-		if (Number >= From || Number <= To)
+		if (Number >= From && Number <= To)
 			return true;
 		else
 			return false;
@@ -112,6 +121,68 @@ public:
 		return Number;
 	}
 
+	static float ReadFloatNumber(string ErrorMessage = "Invalid Number, Enter a valid one ?")
+	{
+		float Number = 0;
+		cin >> Number;
+
+		while (cin.fail())
+		{
+			cin.clear();
+			cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+			cout << ErrorMessage << endl;
+			cin >> Number;
+		}
+
+		return Number;
+	}
+
+	static float ReadFloatBetween(float From, float To, string ErrorMassage) {
+
+		float Number;
+		Number = ReadFloatNumber();
+
+		while (!IsNumberBetween(Number, From, To)) {
+
+			cout << ErrorMassage << endl;
+			Number = ReadFloatNumber();
+
+		}
+
+		return Number;
+	}
+
+	static short ReadShortNumber(string ErrorMessage = "Invalid Number, Enter a valid one ?")
+	{
+		short Number = 0;
+		cin >> Number;
+
+		while (cin.fail())
+		{
+			cin.clear();
+			cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+			cout << ErrorMessage << endl;
+			cin >> Number;
+		}
+
+		return Number;
+	}
+
+	static short ReadShortBetween(short From, short To, string ErrorMassage) {
+
+		short Number;
+		Number = ReadShortNumber();
+
+		while (!IsNumberBetween(Number, From, To)) {
+
+			cout << ErrorMassage << endl;
+			Number = ReadShortNumber();
+
+		}
+
+		return Number;
+	}
+
 	static bool IsValideDate(clsDate Date) {
 
 		return clsDate::IsValidDate(Date);
@@ -160,6 +231,21 @@ public:
 			ValidateUsername(str);
 		}
 		return str;
+	}
+
+	static string ReadString() {
+
+		string str = "";
+		getline(cin >> ws, str);
+
+		return str;
+	}
+
+	static char ReadChar() {
+
+		char character;
+		cin >> character;
+		return tolower(character);
 	}
 
 };
